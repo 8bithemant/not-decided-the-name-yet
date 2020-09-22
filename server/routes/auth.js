@@ -2,8 +2,9 @@ const express = require('express')
 const { request } = require('https')
 const router= express.Router()
 
-const {signup}= require('../controllers/auth')
+const {signup, signin}= require('../controllers/auth')
 
 router.post('/signup', signup)
+router.post('/signin', signin)
 
 module.exports = router

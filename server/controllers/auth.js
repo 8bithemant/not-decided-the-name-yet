@@ -13,9 +13,9 @@ exports.signup= (req,res)=>{
             })
         }
         const {firstName,lastName, email, password} = req.body;
-        let userName= shortId.generate()
-        let profile= `${process.env.CLIENT_URL}/profile/${userName}`;
-        let newUser = new User({userName, firstName, lastName, email, password, profile})
+        let username= shortId.generate()
+        let profile= `${process.env.CLIENT_URL}/profile/${username}`;
+        let newUser = new User({username, firstName, lastName, email, password, profile})
 
         newUser.save((err, success)=>{
             if(err){
@@ -40,5 +40,37 @@ exports.signup= (req,res)=>{
 
 
 exports.signin=(req,res)=>{
+    const {email, password}= req.body
 
+    // Check, if user exists?
+
+    User.findOne({email}).exec((err, user)=>{
+        if(err || !user){
+            return res.status(400).json({
+                error: `No User Found With ${email}, please make sure to Sign-Up first!` 
+            })
+        }
+
+        // Authenticate
+
+        if(!user.authenticate(password)){
+            return res.status(400).json({
+                error: 'Email Pass dose not match'
+            })
+        }
+
+        // Generate JWT= Json Web Token 
+
+        const token= jwt.sign({_id: user._id},process.env.JWT_SECRET, {expiresIn: '1d'})
+
+        res.cookie('token', token, {expiresIn: '1d'})
+
+        const {_id, username, firstName, lastName, email, role} =user
+
+        return res.json({
+            token, user:{
+                _id, username, firstName, lastName, role, email
+            }
+        })
+    })
 }
