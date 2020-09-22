@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const app= express();
 
 // Importing Routes
-const authRoute= require('./controllers/auth')
+const authRoute= require('./routes/auth')
 
 // DB
 console.log(process.env.DATABASE_LOCAL)

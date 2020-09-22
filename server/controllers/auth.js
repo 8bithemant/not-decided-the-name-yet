@@ -13,9 +13,9 @@ exports.signup= (req,res)=>{
             })
         }
         const {firstName,lastName, email, password} = req.body;
-        let username= shortId.generate()
-        let profile= `${process.env.CLIENT_URL}/profile/${username}`;
-        let newUser = new User({username, firstName, lastName, email, password, profile})
+        let userName= shortId.generate()
+        let profile= `${process.env.CLIENT_URL}/profile/${userName}`;
+        let newUser = new User({userName, firstName, lastName, email, password, profile})
 
         newUser.save((err, success)=>{
             if(err){
@@ -28,4 +28,17 @@ exports.signup= (req,res)=>{
             })
         })
     })
+}
+
+
+
+
+
+
+
+
+
+
+exports.signin=(req,res)=>{
+
 }
