@@ -52,6 +52,4 @@ const userSchema = new mongoose.Schema({
         data: String,
         default: ''
     }
-
-
-})
+}, {timestamps: true})
