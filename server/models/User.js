@@ -13,11 +13,15 @@ const userSchema = new mongoose.Schema({
         lowercase: true
     },
 
-    name:{
+    firstName:{
         type: String,
         trim: true,
         required: true,
-        max: 32
+        max: 12
+    },
+    lastName:{
+        type:String,
+        max: 12
     },
 
     email:{
@@ -35,6 +39,11 @@ const userSchema = new mongoose.Schema({
     role:{
         type: Number,
         default:0
+    },
+    
+    profile:{
+        type:String,
+        required: true
     },
 
     salt: String,

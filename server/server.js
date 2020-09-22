@@ -7,8 +7,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 // APP
-
 const app= express();
+
+// Importing Routes
+const authRoute= require('./controllers/auth')
 
 // DB
 console.log(process.env.DATABASE_LOCAL)
@@ -32,6 +34,11 @@ console.log(process.env.NODE_ENV);
 if(process.env.NODE_ENV === 'development'){
     app.use(cors({origin: `${process.env.CLIENT_URL}`}));
 }
+
+
+// Routes
+app.use('/api', authRoute)
+
 
 app.get('/',(req,res)=>{
     res.send('Hii Dev');
