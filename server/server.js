@@ -42,4 +42,6 @@ const port= process.env.PORT;
 
 app.listen(port, ()=>{
     console.log(`${port} Running Live`);
+
+    console.table(`lets roll in ${port}`)
 })
