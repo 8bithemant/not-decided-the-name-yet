@@ -1,11 +1,11 @@
-
-
+import Header from './mains/Header'
+import Footer from './mains/Footer'
 const Layout =({children})=>{
     return (
         <React.Fragment>
-            <p>Header</p>
+            <Header />
             <p>{children}</p>
-            <p>Footer</p>
+            <Footer />
         </React.Fragment>
     )
 }
