@@ -1,6 +1,17 @@
 import React from 'react'
 import Head from 'next/head'
 
+{/**
+  CSS Import's
+*/}
+// main.css
+import '../static/styles/styles.css'
+//header.css
+import '../static/styles/navbar.css'
+// main-header.css
+import '../static/styles/main-header.css'
+
+
 function MyApp({ Component, pageProps }) {
     return (
       <>

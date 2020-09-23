@@ -1,0 +1,66 @@
+
+.main-header{
+    background-color:#ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top:0;
+    border: 1px solid rgb(173, 173, 173);
+}
+
+.main-header-logo{
+    margin: 0.25em 0.5em;
+    padding-left: 1em;
+    font-family: 'Architects Daughter', cursive;
+    font-size: clamp(1.3em, 4vw, 1.8em);
+    font-weight: 600;
+    color: var(--clr-heading);
+}
+
+.main-header-links ul{
+    display: flex;
+    &:last-child{
+        margin-right: 1em;
+    }
+
+    li{
+        list-style: none;
+    }
+    a{
+        text-decoration: none;
+        color: var(--clr-body-heading);
+        font-size: clamp(0.9em, 4vw, 1.1em);
+        padding: 0.14em 0.23em;
+        &:hover,
+        &:focus{
+            transform: scale(1.07);
+            color: var(--clr-heading);
+            border: 0.1px solid #70da19;
+            border-radius:3px 6px 1px;
+        }
+    }
+}
+
+@media(min-width: 500px){
+    .main-header-links{
+
+        li{
+            a{
+                padding: 0 0.3em;
+            }
+        }
+    }
+}
+
+@media(min-width: 900px){
+    .main-header-links{
+
+        li{
+            padding: 0 0.6em;
+            a{
+                padding:0.2em 0.4em ;
+            }
+        }
+    }
+}

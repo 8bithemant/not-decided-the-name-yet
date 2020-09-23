@@ -1,0 +1,36 @@
+*,
+*::after,
+*::before{
+    box-sizing: border-box;
+}
+
+:root{
+    --clr-icons: #f0f0f0;
+    --clr-text: rgb(255, 255, 255);
+    --clr-body-heading:#181818;
+    --clr-heading:#000;
+    --clr-accent: #ff7600;
+    --clr-bg-light: #f3f3f3;
+    --clr-bg-nav-dark: #000000;
+    --clr-bg-nav-icon: rgb(61, 61, 61);
+    --transition: transform 250ms ease-in-out;
+}
+
+body{
+    margin: 0em;
+    background-color: var(--clr-bg-light);
+    color: #0a0505;
+    font-family: sans-serif;
+    position: static;
+    scroll-behavior: smooth;
+}
+
+section{
+    margin: 1em;
+}
+
+.footer{
+    position: relative;
+    bottom: 0;
+}
+
