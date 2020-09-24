@@ -10,6 +10,11 @@ import '../static/styles/styles.css'
 import '../static/styles/navbar.css'
 // main-header.css
 import '../static/styles/main-header.css'
+// signup 
+import '../static/styles/signup.css'
+// signin
+
+import '../static/styles/signin.css'
 
 
 function MyApp({ Component, pageProps }) {

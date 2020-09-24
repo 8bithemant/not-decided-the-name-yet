@@ -12,7 +12,12 @@ exports.signup= (req,res)=>{
                 error: `User Already Exist with this ${req.body.email}`
             })
         }
-        const {firstName,lastName, email, password} = req.body;
+        const {firstName,lastName, email, password, rePassword} = req.body;
+        if(password !== rePassword){
+            return res.status(400).json({
+                error: 'Both the Password Dont Macth'
+            })
+        }
         let username= shortId.generate()
         let profile= `${process.env.CLIENT_URL}/profile/${username}`;
         let newUser = new User({username, firstName, lastName, email, password, profile})

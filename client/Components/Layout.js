@@ -7,7 +7,7 @@ const Layout =({children})=>{
             <Header />
             <MainHeader />
             <section>
-                <p>{children}</p>
+                {children}
             </section>
             <div className="footer">
                 <h1>

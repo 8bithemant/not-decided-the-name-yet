@@ -25,6 +25,16 @@
             display: flex;
             justify-content: space-between;
         }
+        .login-now{
+            font-size: 1.3em;
+            margin: auto;
+            a{
+                cursor: pointer;
+                font-size: 17px;
+                text-decoration: none;
+                color: white;
+            }
+        }
     }
 
     .navbar-links li{
