@@ -45,10 +45,12 @@ section {
 }
 
 .btn {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   margin: 1em 0;
   color: #008fff;
   border-radius: 9px;
-  border: 1px solid #007bff;
+  border: 2px solid #007bff;
   font-weight: 500;
   padding: 10px 15px;
   font-size: 0.9em;
@@ -58,10 +60,8 @@ section {
 .btn:hover, .btn:focus {
   outline: none;
   color: #fff;
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
   background-color: #007bff;
-  border: 5px solid #96c7ec;
+  border: 2px solid #96c7ec;
 }
 
 .btn-primary {

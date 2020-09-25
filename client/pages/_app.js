@@ -15,6 +15,8 @@ import '../static/styles/signup.css'
 // signin
 
 import '../static/styles/signin.css'
+// create Category
+import '../static/styles/createCategory.css'
 
 
 function MyApp({ Component, pageProps }) {

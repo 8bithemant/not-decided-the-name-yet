@@ -1,14 +1,15 @@
 import Layout from '../../.././Components/Layout'
-
+import Category from '../../../Components/manage/Category'
 
 const Elements =()=>{
 
 
     return(
         <Layout>
-            <h3 className="center-heading">
+            <h2 className="center-header">
                 Manage Tags and Categories
-            </h3>
+            </h2>
+            <Category />
         </Layout>
     )
 }

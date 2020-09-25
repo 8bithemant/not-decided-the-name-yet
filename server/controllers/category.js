@@ -3,12 +3,13 @@ const {errorHandler} =require('.././helpers/dbErrorHandler')
 const slugify = require('slugify')
 
 exports.create= (req,res)=>{
+    console.log(req.body)
     const {name, about,cover}= req.body
     let slug= slugify(name).toLowerCase()
     let category = new Category({name, slug, cover, about})
     category.save((err, data)=>{
         if(err){
-            return res.json({
+            return res.status(400).json({
                 error : errorHandler(err)
             })
         }

@@ -1,0 +1,21 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+.category-create-form-group{
+    margin: 1em 0;
+
+    input{
+        width: 70%;
+        padding: 12px 20px;
+        display: inline-block;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+
+        &:focus{
+            border: 3px solid rgb(131, 216, 228);
+        }
+    }
+}
