@@ -10,8 +10,9 @@ const bodyParser = require('body-parser');
 const app= express();
 
 // Importing Routes
-const authRoute= require('./routes/auth')
-
+const authRoutes= require('./routes/auth')
+const categoryRoutes = require('./routes/category')
+const tagRoutes = require('./routes/tag')
 // DB
 console.log(process.env.DATABASE_LOCAL)
 mongoose.connect(process.env.DATABASE_LOCAL,{
@@ -37,12 +38,9 @@ if(process.env.NODE_ENV === 'development'){
 
 
 // Routes
-app.use('/api', authRoute)
-
-
-app.get('/',(req,res)=>{
-    res.send('Hii Dev');
-})
+app.use('/api', authRoutes)
+app.use('/api',categoryRoutes)
+app.use('/api', tagRoutes)
 
 const port= process.env.PORT;
 

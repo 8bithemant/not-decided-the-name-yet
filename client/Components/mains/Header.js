@@ -30,7 +30,7 @@ const Header =()=>{
                     }
                     {
                         isAuth() ? '' : (
-                            <div className="login-now"><a href="/signin"> Log in To Get Started  <i class="icofont-long-arrow-right"></i></a></div>
+                            <div className="login-now"><a href="/signin"> Log in To Get Started  <i className="icofont-long-arrow-right"></i></a></div>
                         )
                     }
                 </ul>

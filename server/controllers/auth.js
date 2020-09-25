@@ -83,12 +83,6 @@ exports.signin=(req,res)=>{
 
 
 
-
-
-
-
-
-
 exports.signout=(req,res)=>{
     res.clearCookie('token')
     res.json({
@@ -101,5 +95,43 @@ exports.signout=(req,res)=>{
 exports.requireSignin =expressJwt({
     secret: process.env.JWT_SECRET, algorithms: ['HS256']
 })
+
+exports.authMiddleware = (req,res,next)=>{
+    const authUserId = req.user._id
+    User.findById({_id: adminUserId})
+        .exec((err, user)=>{
+            if(err || !user){
+                return res.status(400).json({
+                    error: 'User Not Found'
+                })
+            }
+            req.profile= user;
+
+            next()
+        })
+}
+
+exports.adminMiddleware=(req,res,next)=>{
+    const adminUserId= req.user._id;
+
+    User.findById({_id: adminUserId})
+        .exec((err, user)=>{
+            if(err || !user){
+                return res.status(400).json({
+                    error: 'User Not Found'
+                })
+            }
+
+            if(user.role!== 1){
+                return res.status(400).json({
+                    error: 'Admin Resource'
+                })
+            }
+
+            res.profile = user
+
+            next()
+        })
+}
 
 

@@ -31,6 +31,17 @@ const MainHeader =()=>{
                             )
                         }
                         {
+                            isAuth() && isAuth().role===1 &&(
+                                <Link href="/admin">
+                                    <li>
+                                        <a className="main-header-link">
+                                            {`${isAuth().firstName}`}
+                                        </a>
+                                    </li>
+                                </Link>
+                            )
+                        }
+                        {
                             isAuth() &&(
                                 <Link href="/user">
                                     <li>
