@@ -17,9 +17,8 @@ export const create=(tag, token)=>{
         .catch(err=>console.log(err))
 }
 
-
-export const getTags=()=>{
-    return fetch(`${API}/tags`,{
+export const getTag=()=>{
+    return fetch(`${API}/tag`,{
         method:'GET',
     })
         .then(response=>{
@@ -27,6 +26,8 @@ export const getTags=()=>{
     })
         .catch(err=>console.log(err))
 }
+
+
 
 export const removeTag=(slug, token)=>{
     return fetch(`${API}/tag/${slug}`,{
@@ -38,7 +39,6 @@ export const removeTag=(slug, token)=>{
         }
     })
         .then(response=>{
-            handleResponse(response)
             return response.json()
     })
         .catch(err=>console.log(err))

@@ -1,17 +1,15 @@
 import Layout from '../../.././Components/Layout'
-import Category from '../../../Components/manage/Category'
+import Tag from '../../../Components/manage/Tag'
 
-const Elements =()=>{
-
-
+const TagForm =()=>{
     return(
         <Layout>
             <h2 className="center-header">
                 Manage Tags and Categories
             </h2>
-            <Category />
+            <Tag />
         </Layout>
     )
 }
 
-export default Elements;
+export default TagForm;

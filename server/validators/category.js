@@ -5,6 +5,11 @@ exports.categoryCreateValidator=[
         .not()
         .isEmpty()
         .withMessage('Name is Must'),
+    check('about')
+        .isLength({min: 32})
+        .not()
+        .isEmpty()
+        .withMessage('About Must Be 32 Chars'),
     check('cover')
         .not()
         .isEmpty()

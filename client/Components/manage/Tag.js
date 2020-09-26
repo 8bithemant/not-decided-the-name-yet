@@ -1,12 +1,10 @@
 import {useState, useEffect} from 'react'
 import {getCookie} from '../../actions/auth'
-import {create, getCategories, removeCategory} from '../../actions/category'
-import{ CLOUDINARY_URL ,CLOUDINARY} from '../../config'
-import fetch from 'isomorphic-fetch'
-import {uploadImage, Uploading} from '../../actions/upload'
-import { removeTag } from '../../actions/tag'
+import {create, getTag, removeTag} from '../../actions/tag'
+import{CLOUDINARY} from '../../config'
+import {uploadImage} from '../../actions/upload'
 
-const Category =()=>{
+const  Tag=()=>{
 
     const [values, setValues] =useState({
         name:'',
@@ -14,7 +12,7 @@ const Category =()=>{
         cover:'',
         error:'',
         success:'',
-        categories:[],
+        tags:[],
         removed: false,
         reload:false,
         imgLoading: false,
@@ -28,19 +26,19 @@ const Category =()=>{
             if(data.error){
                 console.log(data.error)
             }else{
-                setValues({...values, categories: data})
+                setValues({...values, tags: data})
             }
         })
     }
 
-    const {name,about,cover,error, success, categories, removed, reload, imgLoading, imgSuccess} =values;
+    const {name,about,cover,error, success, tags, removed, reload, imgLoading, imgSuccess} =values;
 
     useEffect(()=>{
         loadTags()
     },[reload])
 
     const showTags=()=>{
-        return categories.map((t,i)=>{
+        return tags.map((t,i)=>{
             return <div className="show-categories">
                     <img src={t.cover} style={{height:'100px', width:'200px'}} />
                     <div className="name">
@@ -54,10 +52,8 @@ const Category =()=>{
         })
     }
 
-
     const deleteConfirm=slug=>{
         let answer= window.confirm('Are You Sure You Want To Delete?')
-
         if(answer){
             deleteTags(slug)
         }
@@ -138,7 +134,6 @@ const Category =()=>{
                     <div>
                         <button type="submit" className="btn btn-primary">Create</button> 
                     </div>
-                    
                 </form>
     }
 
@@ -174,4 +169,4 @@ const Category =()=>{
     </React.Fragment>
 }
 
-export default Category
+export default Tag
