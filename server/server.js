@@ -13,6 +13,7 @@ const app= express();
 const authRoutes= require('./routes/auth')
 const categoryRoutes = require('./routes/category')
 const tagRoutes = require('./routes/tag')
+const blogRoutes= require('./routes/blog')
 // DB
 console.log(process.env.DATABASE_LOCAL)
 mongoose.connect(process.env.DATABASE_LOCAL,{
@@ -41,7 +42,7 @@ if(process.env.NODE_ENV === 'development'){
 app.use('/api', authRoutes)
 app.use('/api',categoryRoutes)
 app.use('/api', tagRoutes)
-
+app.use('/api', blogRoutes)
 const port= process.env.PORT;
 
 

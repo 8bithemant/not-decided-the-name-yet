@@ -23,8 +23,8 @@ const Category =()=>{
 
     const token=getCookie('token')
 
-    const loadTags= ()=>{
-        getTag().then(data=>{
+    const loadCategory= ()=>{
+        getCategories().then(data=>{
             if(data.error){
                 console.log(data.error)
             }else{
@@ -36,20 +36,20 @@ const Category =()=>{
     const {name,about,cover,error, success, categories, removed, reload, imgLoading, imgSuccess} =values;
 
     useEffect(()=>{
-        loadTags()
+        loadCategory()
     },[reload])
 
-    const showTags=()=>{
-        return categories.map((t,i)=>{
+    const showCategory=()=>{
+        return categories.map((c,i)=>{
             return <div className="show-categories">
-                    <img src={t.cover} style={{height:'100px', width:'200px'}} />
+                    <img src={c.cover} style={{height:'100px', width:'200px'}} />
                     <div className="name">
-                        {t.name}
+                        {c.name}
                     </div>
                     <div className="about">
-                        {t.about}
+                        {c.about}
                     </div>
-                   <button onClick={()=> deleteConfirm(t.slug)} title="Double Click To Delete" key={i} className="btn btn-inner">Delete</button>
+                   <button onClick={()=> deleteConfirm(c.slug)} title="Double Click To Delete" key={i} className="btn btn-inner">Delete</button>
                 </div>
         })
     }
@@ -59,12 +59,12 @@ const Category =()=>{
         let answer= window.confirm('Are You Sure You Want To Delete?')
 
         if(answer){
-            deleteTags(slug)
+            deleteCategory(slug)
         }
     }
 
-    const deleteTags=slug=>{
-        removeTag(slug, token).then(info=>{
+    const deleteCategory=slug=>{
+        removeCategory(slug, token).then(info=>{
             if(info.error){
                 console.log(info.error)
             }else{
@@ -104,8 +104,8 @@ const Category =()=>{
 
     const clickSubmit =e=>{
         e.preventDefault()
-        const tag ={name, about, cover}
-        create(tag, token).then(data=>{
+        const category ={name, about, cover}
+        create(category, token).then(data=>{
             if(data.error){
                 setValues({...values, error: data.error, success:false})
             }else{
@@ -118,7 +118,7 @@ const Category =()=>{
         setValues({...values, [name]: e.target.value, error: false, success:false, removed:''})
     }
 
-    const newTagForm =()=>{
+    const newCategoryForm =()=>{
 
         return <form className="form" onSubmit={clickSubmit}>
                         { cover &&
@@ -166,10 +166,10 @@ const Category =()=>{
         {showSuccess()}
         {showRemove()}
         </div>
-        {showTags()}
+        {showCategory()}
         <div >
             {/* onMouseMove={mouseMoveHandler} */}
-            {newTagForm()}
+            {newCategoryForm()}
         </div>
     </React.Fragment>
 }

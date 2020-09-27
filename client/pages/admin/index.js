@@ -13,6 +13,16 @@ const AdminIndex =()=>{
                         Create Blog
                     </a>
                 </Link>
+                <Link href="/admin/manage/category">
+                    <a>
+                        Category
+                    </a>
+                </Link>
+                <Link href="/admin/manage/tag">
+                    <a>
+                        Tag
+                    </a>
+                </Link>
             </div>
             <div className="admin-create_blogs-li">
                 

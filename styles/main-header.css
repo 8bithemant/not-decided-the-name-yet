@@ -1,0 +1,70 @@
+.main-header {
+  background-color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  border: 1px solid #adadad;
+}
+
+.main-header-logo {
+  margin: 0.25em 0.5em;
+  padding-left: 1em;
+  font-family: 'Architects Daughter', cursive;
+  font-size: clamp(1.3em, 4vw, 1.8em);
+  font-weight: 600;
+  color: var(--clr-heading);
+}
+
+.main-header-links ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main-header-links ul:last-child {
+  margin-right: 1em;
+}
+
+.main-header-links ul li {
+  list-style: none;
+}
+
+.main-header-links ul a {
+  text-decoration: none;
+  color: var(--clr-body-heading);
+  font-size: clamp(0.9em, 4vw, 1.1em);
+  padding: 0.14em 0.23em;
+}
+
+.main-header-links ul a:hover, .main-header-links ul a:focus {
+  -webkit-transform: scale(1.07);
+          transform: scale(1.07);
+  color: var(--clr-heading);
+  border: 0.1px solid #70da19;
+  border-radius: 3px 6px 1px;
+}
+
+@media (min-width: 500px) {
+  .main-header-links li a {
+    padding: 0 0.3em;
+  }
+}
+
+@media (min-width: 900px) {
+  .main-header-links li {
+    padding: 0 0.4em;
+  }
+  .main-header-links li a {
+    padding: 0.2em 0.3em;
+  }
+}
+/*# sourceMappingURL=main-header.css.map */
