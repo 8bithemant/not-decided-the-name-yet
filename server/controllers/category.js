@@ -3,6 +3,8 @@ const {errorHandler} =require('.././helpers/dbErrorHandler')
 const slugify = require('slugify')
 
 exports.create= (req,res)=>{
+
+
     console.log(req.body)
     const {name, about,cover}= req.body
     let slug= slugify(name).toLowerCase()
@@ -31,19 +33,44 @@ exports.list=(req,res)=>{
     )
 }
 
-// exports.read=(req,res)=>{
-//     const slug= req.body.slug.toLowerCase()
+exports.update=(req,res)=>{
+    const slug= req.params.slug.toLowerCase()
 
-//     Category.findOne({slug}).exec((err, catetgory)=>{
-//         if(err){
-//             return res.status(400).json({
-//                 error: errorHandler(err)
-//             })
-//         }
+    Category.findOne({slug}).exec((err, oldCategory)=>{
 
-//         Blog.find({categ})
-//     })
-// }
+        if(err){
+            return res.status(400).json({
+                error: errorHandler(err)
+            })
+        }
+        let oldSlug = oldCategory.slug
+        const {name, about, cover} = req.body;
+        oldCategory.slug= oldSlug
+
+        if(name){
+            oldCategory.name= name
+        }
+
+        if(about){
+            oldCategory.about= about
+        }
+
+        if(cover){
+            oldCategory.cover= cover
+        }
+
+        oldCategory.save((err, result)=>{
+            if(err){
+                return res.status(400).json({
+                    error: errorHandler(err)
+                })
+            }
+
+            res.json(result)
+        })
+        
+    })
+}
 
 
 exports.remove =(req,res)=>{

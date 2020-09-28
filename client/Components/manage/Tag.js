@@ -145,7 +145,7 @@ const  Tag=()=>{
 
     const showError =()=>{
         if(error){
-            return <p className="show-error">Category Already Exists</p>
+            return <p className="show-error">hhh</p>
         }
     }
 

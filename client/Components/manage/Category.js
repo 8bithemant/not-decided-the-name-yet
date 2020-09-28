@@ -1,10 +1,8 @@
 import {useState, useEffect} from 'react'
 import {getCookie} from '../../actions/auth'
 import {create, getCategories, removeCategory} from '../../actions/category'
-import{ CLOUDINARY_URL ,CLOUDINARY} from '../../config'
-import fetch from 'isomorphic-fetch'
-import {uploadImage, Uploading} from '../../actions/upload'
-import { removeTag } from '../../actions/tag'
+import {CLOUDINARY} from '../../config'
+import {uploadImage} from '../../actions/upload'
 
 const Category =()=>{
 
@@ -17,8 +15,9 @@ const Category =()=>{
         categories:[],
         removed: false,
         reload:false,
+        imgError: '',
         imgLoading: false,
-        imgSuccess:false
+        imgSuccess: ''
     })
 
     const token=getCookie('token')
@@ -33,7 +32,7 @@ const Category =()=>{
         })
     }
 
-    const {name,about,cover,error, success, categories, removed, reload, imgLoading, imgSuccess} =values;
+    const {name,about,cover,error, success, categories, removed, reload,imgError, imgLoading, imgSuccess} =values;
 
     useEffect(()=>{
         loadCategory()
@@ -66,7 +65,7 @@ const Category =()=>{
     const deleteCategory=slug=>{
         removeCategory(slug, token).then(info=>{
             if(info.error){
-                console.log(info.error)
+                setValues({...values, imgError: info.error, imgLoading: false})
             }else{
             
                 setValues({...values, error: false, success: false, name:'',removed: true, reload:!reload})
@@ -113,6 +112,21 @@ const Category =()=>{
             }
         })
     }
+    const cloudinaryLoading=()=>{
+        if(imgLoading){
+            return <div className="show-success">
+                Uploading Image
+            </div>
+        }
+    }
+
+    const cloudinaryError=()=>{
+        if(imgError){
+            return <div className="show-error">
+                {imgError}
+            </div>
+        }
+    }
 
     const handleChange=(name)=>e=>{
         setValues({...values, [name]: e.target.value, error: false, success:false, removed:''})
@@ -131,7 +145,7 @@ const Category =()=>{
                         {/* <label className="category-create-form-group">About</label> */}
                         <input type="text" className="form-control" onChange={handleChange('about')} value={about} required/>
                     </div>
-                    <label >
+                    <label>
                         Upload image
                         <input type="file" id="file" onChange={uploadFile} required placeholder="Upload Image" style={{display:'none'}}/>
                     </label>
@@ -167,6 +181,11 @@ const Category =()=>{
         {showRemove()}
         </div>
         {showCategory()}
+
+        <div className="show-updates">
+            {cloudinaryLoading()}
+            {cloudinaryError()}
+        </div>
         <div >
             {/* onMouseMove={mouseMoveHandler} */}
             {newCategoryForm()}

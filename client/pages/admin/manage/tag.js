@@ -1,14 +1,16 @@
-import Layout from '../../.././Components/Layout'
+import Layout from '../../../Components/Layout'
 import Tag from '../../../Components/manage/Tag'
-
+import Admin from '../../../Components/auth/Admin'
 const TagForm =()=>{
     return(
-        <Layout>
-            <h2 className="center-header">
-                Manage Tags and Categories
-            </h2>
-            <Tag />
-        </Layout>
+        <Admin>
+            <Layout>
+                    <h2 className="center-header">
+                        Manage Tags
+                    </h2>
+                    <Tag />
+            </Layout>
+        </Admin>
     )
 }
 

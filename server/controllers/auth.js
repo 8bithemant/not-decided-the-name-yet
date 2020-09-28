@@ -52,7 +52,7 @@ exports.signin=(req,res)=>{
     User.findOne({email}).exec((err, user)=>{
         if(err || !user){
             return res.status(400).json({
-                error: `No User Found With ${email}, please make sure to Sign-Up first!` 
+                error: `No User Found With that email, please make sure to Sign-Up first!` 
             })
         }
 

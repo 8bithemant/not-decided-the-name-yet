@@ -15,6 +15,37 @@ exports.create=(req,res)=>{
 
     const {title, body, cover, categories,tags}= req.body
     // console.log(req.body.title)
+
+    if(!title){
+        return res.status(400).json({
+            error: 'Title is must'
+        });
+    }
+
+    // if(!cover){
+    //     return res.status(400).json({
+    //         error: 'Cover is must'
+    //     });
+    // }
+
+    if(!body){
+        return res.status(400).json({
+            error: 'body cannot be Empty'
+        });
+    }
+
+    if(body.length < 99 ){
+        return res.status(400).json({
+            error: 'Body Must be atleast of 100 words'
+        });
+    }
+
+    if(!categories || categories.length === 0){
+        return res.status(400).json({
+            error: 'At least one Categories is req'
+        });
+    }
+
     if(!tags || tags.length ===0){
         return res.status(400).json({
             error: 'At least one tag is req'
@@ -34,11 +65,21 @@ exports.create=(req,res)=>{
     blog.postedBy =req.user._id;
     let arrayOfCategories= categories && categories.split(",")
     let arrayOfTags= tags && tags.split(",")
+
+
     if(arrayOfCategories[1]){
         return res.status(400).json({
             error: 'Single Cat Can be Inserted'
         })
     }
+
+    if(arrayOfTags[4]){
+        return res.status(400).json({
+            error: 'Only 4 Tags can be adde'
+        });
+    }
+
+
     blog.save(
         (err, result)=>{
             if(err){
@@ -117,6 +158,56 @@ exports.create=(req,res)=>{
 
 }
 
+exports.listAllBlogsCatTags=(req,res)=>{
+    let limit = req.body.limit ? pareInt(req.body.limit) : 6;
+    let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+
+    let blogs
+    let categories
+    let listAllBlogsCatTags
+
+    Blog.find({})
+        .populate('categories', '_id name slug')
+        .populate('tags','_id name slug')
+        .populate('postedBy', '_id name profile username')
+        .sort({createdAt: -1})
+        .skip(skip)
+        .limit(limit)
+        .select('_id title slug excerpt categories tags postedBy createdAt updatedAt')
+        .exec((err, data)=>{
+            if(err){
+                return res.json({
+                    error: errorHandler(err)
+                })
+            }
+
+            blogs= data
+
+            Category.find({}).exec((err, c)=>{
+                if(err){
+                    return res.json({
+                        error: errorHandler(err)
+                    })
+                }
+
+                categories = c
+
+
+                Tag.find({}).exec((err, t)=>{
+                    if(err){
+                        return res.json({
+                            error: errorHandler(err)
+                        })
+                    }
+
+                    tags= t
+
+                    res.json({blogs, categories, tags, size: blogs.length})
+                })
+            })
+        })
+}
+
 exports.read=(req,res)=>{
     const slug= req.params.slug.toLowerCase()
 
@@ -149,5 +240,58 @@ exports.remove=(req,res)=>{
             message : 'Successfully Deleted',
             title: data.title
         })
+    })
+}
+
+exports.update=(req,res)=>{
+    const slug=req.params.slug.toLowerCase()
+
+    Blog.findOne({slug}).exec((err, oldBlog)=>{
+        if(err){
+            return res.status(400).json({
+                error: errorHandler(err)
+            })
+        }
+
+        const {body, categories, tags, cover, title} = req.body;
+        console.log(req.body)
+    
+        let slugBeforeMerge= oldBlog.slug;
+        oldBlog.slug= slugBeforeMerge
+
+        if(title){
+            oldBlog.title= title
+            console.log(title)
+        }
+
+        if(body){
+            oldBlog.excerpt = smartTrim(body, 320, ' ', ' ...')
+            oldBlog.mdesc = stripHtml(body).result.substring(0,150)
+        }
+
+        if(categories){
+            oldBlog.categories= categories.split(',')
+        }
+        
+        if(tags){
+            oldBlog.tags= tags.split(',')
+        }
+
+        if(cover){
+            oldBlog.cover = cover
+        }
+
+        console.log(oldBlog)
+        oldBlog.save((err, result)=>{
+            if(err){
+                return res.status(400).json({
+                    error: errorHandler(err)
+                })
+            }
+
+            res.json(result)
+        })
+
+        
     })
 }
