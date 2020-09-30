@@ -18,6 +18,7 @@ import '../static/styles/signin.css'
 // create Category
 import '../static/styles/createCategory.css'
 
+import '../node_modules/react-quill/dist/quill.snow.css';
 
 function MyApp({ Component, pageProps }) {
     return (

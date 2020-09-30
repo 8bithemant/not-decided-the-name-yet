@@ -9,11 +9,9 @@ const AdminIndex =()=>{
             <Layout>
                 <h2 className="center-header">Admin Index Page</h2>
                 <div className="admin-create_blogs-li">
-                    <Link href="/admin/create-blog">
-                        <a>
-                            Create Blog
-                        </a>
-                    </Link>
+                    <a href="/admin/create-blog">
+                        Create Blog
+                    </a>
                     <br/ >
                     <Link href="/admin/manage/category">
                         <a>

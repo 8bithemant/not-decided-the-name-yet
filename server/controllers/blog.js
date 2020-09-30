@@ -3,49 +3,16 @@ const Category= require('../models/Category')
 const Tag = require('../models/Tag')
 const slugify= require('slugify')
 const stripHtml= require('string-strip-html')
-const _ = require('lodash')
-const fs = require('fs')
 const {smartTrim}= require('../helpers/blog')
 const User = require('../models/User')
-const { result } = require('lodash')
 const { errorHandler } = require('../helpers/dbErrorHandler')
 
 
 exports.create=(req,res)=>{
 
     const {title, body, cover, categories,tags}= req.body
+    console.log(req.body)
     // console.log(req.body.title)
-
-    if(!title){
-        return res.status(400).json({
-            error: 'Title is must'
-        });
-    }
-
-    // if(!cover){
-    //     return res.status(400).json({
-    //         error: 'Cover is must'
-    //     });
-    // }
-
-    if(!body){
-        return res.status(400).json({
-            error: 'body cannot be Empty'
-        });
-    }
-
-    if(body.length < 99 ){
-        return res.status(400).json({
-            error: 'Body Must be atleast of 100 words'
-        });
-    }
-
-    if(!categories || categories.length === 0){
-        return res.status(400).json({
-            error: 'At least one Categories is req'
-        });
-    }
-
     if(!tags || tags.length ===0){
         return res.status(400).json({
             error: 'At least one tag is req'
@@ -59,30 +26,21 @@ exports.create=(req,res)=>{
     blog.body= body;
     blog.cover= cover
     blog.excerpt= smartTrim(body, 320, ' ', ' ...');
-    blog.slug= slugify(title).toLowerCase() +'-'+ Math.floor(Math.random()*100) ;
+    blog.slug= slugify(title).toLowerCase() +'-'+ Math.floor(Math.random()*100);
     blog.mtitle= `${title} | ${process.env.APP_NAME}`
     blog.mdesc= stripHtml(body).result.substring(0, 150)
     blog.postedBy =req.user._id;
     let arrayOfCategories= categories && categories.split(",")
     let arrayOfTags= tags && tags.split(",")
-
-
     if(arrayOfCategories[1]){
         return res.status(400).json({
             error: 'Single Cat Can be Inserted'
         })
     }
-
-    if(arrayOfTags[4]){
-        return res.status(400).json({
-            error: 'Only 4 Tags can be adde'
-        });
-    }
-
-
     blog.save(
         (err, result)=>{
             if(err){
+                console.log('0')
                 return res.status(400).json({
                     error: errorHandler(err)
                 })
@@ -91,12 +49,14 @@ exports.create=(req,res)=>{
             Blog.findByIdAndUpdate(result._id, {$push:{categories: arrayOfCategories}}, {new: true}).exec(
                 (err, result)=>{
                     if(err){
+                        console.log('1')
                         return res.status(400).json({
-                            error: errorHandler(err)
+                            error: err
                         })
                     }else{
                         Blog.findByIdAndUpdate(result._id, {$push:{tags: arrayOfTags}},{new: false}).exec((err,result)=>{
                             if(err){
+                                console.log('2')
                                 return res.status(400).json({
                                     error: errorHandler(err)
                                 })
@@ -110,12 +70,14 @@ exports.create=(req,res)=>{
                                 Blog.findByIdAndUpdate(result._id, {$set:{slug: newSlug}}).exec(
                                     (err, result)=>{
                                         if(err){
+                                            console.log('3')
                                             return res.status(400).json({
                                                 error: errorHandler(err)
                                             })
                                         }
                                         Blog.findById(result._id).exec((err, result)=>{
                                             if(err){
+                                                console.log('4')
                                                 return res.status(400).json({
                                                     error: errorHandler(err)
                                                 })
