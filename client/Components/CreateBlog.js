@@ -19,7 +19,7 @@ const BlogCreate=({router})=>{
         success:false,
         cover:'',
         title: '',
-        body:'ddgddgg',
+        body:'',
         tags:[],
         categories:[],
         showPublishedButton :true,

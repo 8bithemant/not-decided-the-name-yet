@@ -52,13 +52,12 @@ class MyComponent extends React.Component {
     render() {
         return (
             <div className="text-editor">
-                {JSON.stringify(this.props)}
                 <hr />
                 <ReactQuill
                     ref={el => {
                         this.quill = el;
                     }}
-                    // value={props.value}
+                    value={this.state.editorHtml}
                     onChange={this.handleChange}
                     placeholder="type your Blogs Body here"
                     modules={{
